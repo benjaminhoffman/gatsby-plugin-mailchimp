@@ -1,0 +1,31 @@
+{
+    "name": "gatsby-plugin-my-cool-plugin",
+    "version": "1.0.0",
+    "description": "test desc",
+    "main": "index.js",
+    "scripts": {
+        "test": "test",
+        "build": "babel src -d .",
+        "watch": "babel src -d . -w"
+    },
+    "repository": {
+        "type": "git",
+        "url": "gitrepo"
+    },
+    "keywords": [
+        "keywords"
+    ],
+    "author": "Benjamin Hoffman",
+    "license": "ISC",
+    "dependencies": {
+        "email-validator": "^1.1.1",
+        "jsonp": "^0.2.1"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-core": "^6.26.0",
+        "babel-polyfill": "^6.26.0",
+        "babel-preset-es2015": "^6.24.1",
+        "babel-preset-stage-0": "^6.24.1"
+    }
+}
