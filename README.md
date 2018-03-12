@@ -7,6 +7,7 @@ TODO:
 - remove `console.log`
 - ensure MC endpoint is valid
 - create basic MC field form (name, email, submit button)
+- fix `src/index.js` to use `async/await`
 - README TODO
   - explain how to get the MC endpoint
   - explain how emails should be standard bc we do the encoding herein
