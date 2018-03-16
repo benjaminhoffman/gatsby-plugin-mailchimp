@@ -1,9 +1,9 @@
-This Gatsby plugin helps you add email addresses to your Mailchimp list much easier than re-writing the code yourself.  Mailchimp frowns upon adding emails to your list on the client and makes it difficult to do so.  I've extrapolated all that logic into one nice, neat, lightweight plugin!
+This Gatsby plugin helps you add email addresses to your Mailchimp list much easier than re-writing the code yourself.  Mailchimp makes it difficult to add emails to lists from the client -- they say it could lead to spam (which is true but from what Iʼve seen, very rare occurance).  I've extrapolated all the messy logic into one nice, neat, lightweight plugin!
 
 ### Features
-This plugin accepts yoru Mailchimp account and list settings via your `gatsby-config` file and allows you to pass in an email address and any additional attributes you'd like to save with the user.
+This plugin accepts your Mailchimp account and list settings via your `gatsby-config` file and allows you to pass in an email address and any additional attributes you'd like to save with the user.
 
-For success and error messages, we simply forward whatever is returned from mailchimp.
+For success and error messages, we simply forward whatever is returned from Mailchimp.
 
 
 ### Get Started
@@ -47,11 +47,11 @@ export default MyGatsbyComponent extends React.Component {
 }
 ```
 
-NOTE: for the `email` field, pass in the email as normal (ie, _you@gmail.com_), do _not_ encode or transform it as our plugin will do that for you!
+NOTE: for the `email` field, pass in the email as normal (ie, _you@gmail.com_); do _not_ encode or transform the email, our plugin will do that for you!
 
-If you are using React controlled form fields, then the listFields is something you can simply pull from state and pass to the plugin.  Examples include user's first/last name, contact info, and sometimes I even like to collect the page pathname they are on so I know which page gets the most signups.
+If you are using React controlled form fields, then the listFields is something you can simply pull from state and pass to the plugin.  Examples include user's first/last name, contact info, and sometimes I even like to collect the page pathname the user is on so I know which page gets the most signups.
 
-Also what I like to do is have React state handle the success or error message that is returned from Mailchimp and passed down through this plugin.  This allows me to display a dialogue to a user.
+Also what I like to do is have React state handle the success or error message.  This allows me to display a dialogue to a user.
 
 For example: TODO: link to Gatsby website of where this plugin is used.
 
@@ -67,7 +67,7 @@ You need to provide this plugin with your Mailchimp account and list details in 
 5. Click the subtab "Signup forms
 6. Click "Embedded forms"
 
-![screenshot of how to locate your mailchimp list settings](./img/mailchimp_list.png)
+![screenshot of how to locate your Mailchimp list settings](./img/mailchimp_list.png)
 
 7. Scroll down to the section with all the HTML code
 8. Locate the HTML form element.  Copy the entire URL listed under the form "action" attribute
