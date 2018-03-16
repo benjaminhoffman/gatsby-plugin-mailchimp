@@ -18,17 +18,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /*
  * make a jsonp request to user's mailchimp list
- * url is a concatenated string of user's gatsby.config
+ * url is a concatenated string of user's gatsby-config.js
  * options, along with any MC list fields as query params
  */
 
-var makeMailchimpRequest = function makeMailchimpRequest(url) {
+var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(url) {
   return new Promise(function (resolve, reject) {
+    // `param` object avoids CORS issues
     return (0, _jsonp2.default)(url, { param: 'c' }, function (err, data) {
-      console.log('1', err);
-      if (err) resolve(err);
-      console.log('2', data);
-      if (data) reject(data);
+      if (err) reject(err);
+      if (data) resolve(data);
     });
   });
 };
@@ -38,8 +37,9 @@ var makeMailchimpRequest = function makeMailchimpRequest(url) {
  */
 
 var getPluginOptions = function getPluginOptions() {
+  // find gatsby-mailchimp plugin options (MC list settings)
   var options = _gatsbyConfig2.default.plugins.find(function (plugin) {
-    return plugin.resolve === 'gatsby-plugin-my-cool-plugin';
+    return plugin.resolve === 'gatsby-plugin-mailchimp';
   }).options;
 
   var isString = typeof options.endpoint === 'string';
@@ -50,9 +50,9 @@ var getPluginOptions = function getPluginOptions() {
 };
 
 /*
- * convert fields object into a query string
+ * build a query string of MC list fields
  * ex: '&KEY1=value1&KEY2=value2'
- * toUpperCase because that's what MC requires
+ * (toUpperCase because that's what MC requires)
  */
 
 var convertListFields = function convertListFields(fields) {
@@ -64,8 +64,8 @@ var convertListFields = function convertListFields(fields) {
 };
 
 /*
- * accept email (String) and additional
- * and optional Mailchimp list fields (Object)
+ * accept email (String) and additional, optional
+ * Mailchimp list fields (Object)
  * then make jsonp req with data
  */
 
@@ -76,20 +76,19 @@ var addToMailchimp = function addToMailchimp(email, fields) {
     throw 'gatsy-plugin-mailchimp: email must be of type string and a valid email address. See README for more information.';
   }
 
-  var endpoint = '';
-  try {
-    endpoint = getPluginOptions().endpoint;
-  } catch (e) {
-    throw e;
-  }
+  // generate Mailchimp endpoint for jsonp request
+  // note, we change `/post` to `/post-json`
+
+  var _getPluginOptions = getPluginOptions(),
+      hostname = _getPluginOptions.hostname,
+      u = _getPluginOptions.u,
+      listId = _getPluginOptions.listId;
+
+  var endpoint = hostname + '/subscribe/post-json?u=' + u + '&amp;id=' + listId;
 
   var queryParams = '&EMAIL=' + emailEncoded + convertListFields(fields);
   var url = '' + endpoint + queryParams;
-  makeMailchimpRequest(url).then(function (data) {
-    return data;
-  }).catch(function (err) {
-    console.log("ERR", err);
-  });
+  return subscribeEmailToMailchimp(url);
 };
 
 exports.default = addToMailchimp;

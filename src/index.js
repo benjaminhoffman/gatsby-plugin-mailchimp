@@ -8,11 +8,12 @@ import { validate } from 'email-validator'
  * options, along with any MC list fields as query params
  */
 
-const makeMailchimpRequest = url => {
+const subscribeEmailToMailchimp = url => {
   return new Promise((resolve, reject) => {
+    // `param` object avoids CORS issues
     return jsonp(url, { param: 'c' }, (err, data) => {
-      if (err) resolve(err)
-      if (data) reject(data)
+      if (err) reject(err)
+      if (data) resolve(data)
     })
   })
 }
@@ -61,23 +62,14 @@ const addToMailchimp = (email, fields) => {
     throw 'gatsy-plugin-mailchimp: email must be of type string and a valid email address. See README for more information.'
   }
 
-  let endpoint = ''
-  try {
-    endpoint = getPluginOptions().endpoint
-  } catch (e) {
-    throw e
-  }
+  // generate Mailchimp endpoint for jsonp request
+  // note, we change `/post` to `/post-json`
+  const {hostname, u, listId} = getPluginOptions()
+  const endpoint = `${hostname}/subscribe/post-json?u=${u}&amp;id=${listId}`
 
   const queryParams = `&EMAIL=${emailEncoded}${convertListFields(fields)}`
   const url = `${endpoint}${queryParams}`
-
-  makeMailchimpRequest(url)
-  .then(data => {
-    return data
-  })
-  .catch(err => {
-    console.log("gatsby-plugin-mailchimp error:", err)
-  })
+  return subscribeEmailToMailchimp(url)
 }
 
 export default addToMailchimp
