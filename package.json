@@ -1,7 +1,7 @@
 {
   "name": "gatsby-plugin-mailchimp",
   "version": "0.1.0",
-  "description": "A simple, lightweight Gatsby plugin to add email addresses to your mailchimp list",
+  "description": "A simple, lightweight Gatsby plugin to subscribe email addresses to your Mailchimp list",
   "main": "index.js",
   "scripts": {
     "test": "test",
@@ -31,9 +31,6 @@
   "homepage": "https://github.com/benjaminhoffman/gatsby-plugin-mailchimp#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1"
+    "babel-preset-env": "^1.6.1"
   }
 }
