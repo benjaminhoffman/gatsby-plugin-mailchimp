@@ -1,8 +1,7 @@
 {
   "name": "gatsby-plugin-mailchimp",
-  "version": "1.0.0",
-  "description":
-    "A simple, lightweight Gatsby plugin to add email addresses to your mailchimp list",
+  "version": "0.0.3",
+  "description": "A simple, lightweight Gatsby plugin to add email addresses to your mailchimp list",
   "main": "index.js",
   "scripts": {
     "test": "test",
@@ -13,9 +12,14 @@
     "type": "git",
     "url": "https://github.com/benjaminhoffman/gatsby-plugin-mailchimp.git"
   },
-  "keywords": ["gatsby", "gatsby plugin", "gatsbyjs", "mailchimp", "mailchimp api"],
-  "author":
-    "Benjamin Hoffman <6520022+benjaminhoffman@users.noreply.github.com>",
+  "keywords": [
+    "gatsby",
+    "gatsby plugin",
+    "gatsbyjs",
+    "mailchimp",
+    "mailchimp api"
+  ],
+  "author": "Benjamin Hoffman <6520022+benjaminhoffman@users.noreply.github.com>",
   "license": "MIT",
   "dependencies": {
     "email-validator": "^1.1.1",
@@ -24,8 +28,7 @@
   "bugs": {
     "url": "https://github.com/benjaminhoffman/gatsby-plugin-mailchimp/issues"
   },
-  "homepage":
-    "https://github.com/benjaminhoffman/gatsby-plugin-mailchimp#readme",
+  "homepage": "https://github.com/benjaminhoffman/gatsby-plugin-mailchimp#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
