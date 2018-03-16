@@ -4,16 +4,14 @@ import { validate } from 'email-validator'
 
 /*
  * make a jsonp request to user's mailchimp list
- * url is a concatenated string of user's gatsby.config
+ * url is a concatenated string of user's gatsby-config.js
  * options, along with any MC list fields as query params
  */
 
 const makeMailchimpRequest = url => {
   return new Promise((resolve, reject) => {
     return jsonp(url, { param: 'c' }, (err, data) => {
-      console.log('1', err)
       if (err) resolve(err)
-      console.log('2', data)
       if (data) reject(data)
     })
   })
@@ -24,8 +22,9 @@ const makeMailchimpRequest = url => {
  */
 
 const getPluginOptions = () => {
+  // find gatsby-mailchimp plugin options (MC list settings)
   const options = gatsbyConfig.plugins.find(
-    plugin => plugin.resolve === 'gatsby-plugin-my-cool-plugin'
+    plugin => plugin.resolve === 'gatsby-plugin-mailchimp'
   ).options
 
   const isString = typeof options.endpoint === 'string'
@@ -36,9 +35,9 @@ const getPluginOptions = () => {
 }
 
 /*
- * convert fields object into a query string
+ * build a query string of MC list fields
  * ex: '&KEY1=value1&KEY2=value2'
- * toUpperCase because that's what MC requires
+ * (toUpperCase because that's what MC requires)
  */
 
 const convertListFields = fields => {
@@ -50,8 +49,8 @@ const convertListFields = fields => {
 }
 
 /*
- * accept email (String) and additional
- * and optional Mailchimp list fields (Object)
+ * accept email (String) and additional, optional
+ * Mailchimp list fields (Object)
  * then make jsonp req with data
  */
 
@@ -71,12 +70,13 @@ const addToMailchimp = (email, fields) => {
 
   const queryParams = `&EMAIL=${emailEncoded}${convertListFields(fields)}`
   const url = `${endpoint}${queryParams}`
+
   makeMailchimpRequest(url)
   .then(data => {
     return data
   })
   .catch(err => {
-    console.log("ERR", err)
+    console.log("gatsby-plugin-mailchimp error:", err)
   })
 }
 
