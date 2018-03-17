@@ -78,13 +78,12 @@ var addToMailchimp = function addToMailchimp(email, fields) {
 
   // generate Mailchimp endpoint for jsonp request
   // note, we change `/post` to `/post-json`
+  // otherwise, Mailchomp returns an error
 
   var _getPluginOptions = getPluginOptions(),
-      hostname = _getPluginOptions.hostname,
-      u = _getPluginOptions.u,
-      listId = _getPluginOptions.listId;
+      endpoint = _getPluginOptions.endpoint;
 
-  var endpoint = hostname + '/subscribe/post-json?u=' + u + '&amp;id=' + listId;
+  endpoint = endpoint.replace(/\/post/g, '/post-json');
 
   var queryParams = '&EMAIL=' + emailEncoded + convertListFields(fields);
   var url = '' + endpoint + queryParams;
