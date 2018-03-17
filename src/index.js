@@ -8,15 +8,15 @@ import { validate } from 'email-validator'
  * options, along with any MC list fields as query params
  */
 
-const subscribeEmailToMailchimp = url => {
-  return new Promise((resolve, reject) => {
+const subscribeEmailToMailchimp = url => (
+  new Promise((resolve, reject) => {
     // `param` object avoids CORS issues
     return jsonp(url, { param: 'c' }, (err, data) => {
       if (err) reject(err)
       if (data) resolve(data)
     })
   })
-}
+)
 
 /*
  * parse the plugin options to use in our jsonp request
@@ -64,8 +64,9 @@ const addToMailchimp = (email, fields) => {
 
   // generate Mailchimp endpoint for jsonp request
   // note, we change `/post` to `/post-json`
-  const {url, u, listId} = getPluginOptions()
-  const endpoint = `${url}/subscribe/post-json?u=${u}&amp;id=${listId}`
+  // otherwise, Mailchomp returns an error
+  let {endpoint} = getPluginOptions()
+  endpoint = endpoint.replace(/\/post/g, '/post-json')
 
   const queryParams = `&EMAIL=${emailEncoded}${convertListFields(fields)}`
   const url = `${endpoint}${queryParams}`
