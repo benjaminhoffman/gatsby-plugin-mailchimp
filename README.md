@@ -5,13 +5,13 @@ Although the setup and configuration below may seem long, I assure you itʼs eas
 There are two primary steps involved.  First, you have to set your global Mailchimp settings (account ID, user ID, list ID) via your projectʼs `gatsby-config.js`.  Second, you import this plugin into the React components and pass an email and any other attributes (i.e. Mailchimp List Fields) youʼd like to save alongside the user.
 
 
-### How It Works Under The Hood
+## How It Works Under The Hood
 What this plugin does is scan your `gatsby-config` for your MC settings.  Then, once you import and invoke the `addToMailchimp` method in your React component, it makes a jsonp request of the email/attributes to MC's server using your settings.
 
 Because making a request to the Mailchimp server is done asynchronously, this plugin returns a promise, which resolves to whatever is returned from Mailchimp (usually an object).
 
 
-### Returns
+## Returns
 This plugin returns a promise that resolves to the object that is return by Mailchimpʼs API.  The Mailchimp API will always return a status of 200.  In order to know if your submission was a success or error, you must read the returned object, which has a `result` and `msg` property:
 ```javascript
 {
@@ -21,7 +21,7 @@ This plugin returns a promise that resolves to the object that is return by Mail
 ```
 
 
-### Getting Started
+## Getting Started
 Youʼll first have to add your Mailchimp account and list settings to your `gatsby-config.js` file.  Next, youʼll have to import this plugin into each file youʼd like to use it with.  
 
 This plugin exports one method -- `addToMailchimp` -- that accepts two params: `email` and `listFields`, where `email` is a valid email string and `listFields` is an object of attributes youʼd like to save with the email address.  More detailed instructions below.
@@ -30,7 +30,7 @@ In your terminal, type:
 `$ yarn add gatsby-plugin-mailchimp`
 
 
-### Gatsby Config Instructions
+## Gatsby Config Instructions
 You need to provide this plugin with your Mailchimp account and list details in order for it to know which endpoint to save the email address to.  Follow these directions:
 
 In your `gatsby-config.js` file, add the following code to the plugin section:
@@ -40,13 +40,13 @@ plugins: [
   {
     resolve: 'gatsby-plugin-my-cool-plugin',
     options: {
-      endpoint: '', // see `Gatsby Config Instructions` section below
+      endpoint: '', // see instructions section below
     },
   },
 ]
 ```
 
-#### Mailchimp Endpoint
+### Mailchimp Endpoint
 1. Login to your Mailchimp account
 2. Click "Lists" tab at the top
 3. Locate the Mailchimp list you want to save email addresses to
@@ -67,11 +67,10 @@ plugins: [
 ... that's all!
 
 
-### Gatsby Import Plugin Instructions
-Next, navigate to the file where you collect email addresses (ie, the file you want to import this plugin into).  Add the following code:
+## Gatsby Import Plugin Instructions
+Next, navigate to the file where you collect email addresses (ie, the file you want to import this plugin into).  When a user submits a form and includes at least their email address, invoke the `addToMailchimp` method like you would any other method.  Here is an example:
 ```javascript
 import addToMailchimp from 'gatsby-plugin-mailchimp'
-
 ...
 
 export default class MyGatsbyComponent extends React.Component {
@@ -102,7 +101,7 @@ export default class MyGatsbyComponent extends React.Component {
   _handleSubmit = async (e) => {
     e.preventDefault;
     const result = await addToMailchimp(email, listFields)
-    // I recommend setting result to React state
+    // I recommend setting `result` to React state
     // but you can do whatever you want
   }
 
@@ -126,10 +125,10 @@ Things to be aware of:
 3. I like to save the returned data to React state so I can then display a success/error message to the user.
 
 
-#### Mailchimp List Fields
+## Mailchimp List Fields
 Sometimes you want to send to Mailchimp more than just an email address.  Itʼs very common to also send a first name, last name, pathname, etc.  Honestly, you can send whatever you want to store alongside the email address.  Instructions below on how to create new list fields but once youʼve set them up in Mailchimp, you send them alongside the email like this:
 ```javascript
-addToMailchimp('email@example.com`, {
+addToMailchimp('email@example.com', {
   PATHNAME: '/blog-post-1',
   FNAME: 'Ben',
   LNAME: 'Bordeaux'
@@ -137,12 +136,13 @@ addToMailchimp('email@example.com`, {
 })
 ```
 
-To setup or modify Mailchimp list fields, navigate to your MC list, click "Settings", then click "List fields".  Then add, remove, or edit fields as you wish:
+### Create, Remove, or Edit Mailchimp List Fields
+To setup or modify Mailchimp list fields, navigate to your MC list, click "Settings", then click "List fields".  Then add, remove, or edit fields as you wish.  Make sure to update your `addToMailchimp` listFields object after youʼve made changes in Mailchimp.
 
-![screenshot of Mailchimp list fields settings screen]('../img/mailchimp_list_fields.png')
+![screenshot of Mailchimp list fields settings screen](./img/mailchimp_list_fields.png)
 
 
-### To do
+## To do
 - ensure MC endpoint is valid
 - create basic MC field form (name, email, submit button)
 - spec
