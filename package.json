@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-mailchimp",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "A simple, lightweight Gatsby plugin to subscribe email addresses to your Mailchimp list",
   "main": "index.js",
   "scripts": {
