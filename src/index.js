@@ -64,8 +64,8 @@ const addToMailchimp = (email, fields) => {
 
   // generate Mailchimp endpoint for jsonp request
   // note, we change `/post` to `/post-json`
-  const {hostname, u, listId} = getPluginOptions()
-  const endpoint = `${hostname}/subscribe/post-json?u=${u}&amp;id=${listId}`
+  const {url, u, listId} = getPluginOptions()
+  const endpoint = `${url}/subscribe/post-json?u=${u}&amp;id=${listId}`
 
   const queryParams = `&EMAIL=${emailEncoded}${convertListFields(fields)}`
   const url = `${endpoint}${queryParams}`

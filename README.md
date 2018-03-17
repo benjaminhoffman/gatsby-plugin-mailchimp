@@ -1,11 +1,13 @@
-This Gatsby plugin helps you subscribe new email addresses to your Mailchimp list.  Mailchimp does not provide much direction on how to make clientside requests.  After much hacking and research in order to implement this on Gatsbyʼs blog, I built this plugin.
+This Gatsby plugin helps you subscribe new email addresses to your Mailchimp list.  Mailchimp does not provide much direction on making clientside requests so the setup to achieve this with a static website (i.e. Gatsby) is quite cumbersome.
 
-### How It Works
-This plugin accepts your Mailchimp account and list settings as well as an email address and any additional user attributes you want to save in MC.  You save your settings in your `gatsby-config.js` file and you send the email and attributes via your React component.
+Although the setup and configuration below may seem long, I assure you itʼs easier than doing it from scratch yourself.
 
+There are two primary steps involved.  First, you have to set your global Mailchimp settings (account ID, user ID, list ID) via your projectʼs `gatsby-config.js`.  Second, you import this plugin into the React components and pass an email and any other attributes (i.e. Mailchimp List Fields) youʼd like to save alongside the user.
+
+### How It Works Under The Hood
 What this plugin does is scan your `gatsby-config` for your MC settings.  Then, once you import and invoke the `addToMailchimp` method in your React component, it makes a jsonp request of the email/attributes to MC's server using your settings.
 
-Because making a request to the Mailchimp server is done asynchronously, this plugin returns a promise, which resolves to whatever is returned from Mailchimp.
+Because making a request to the Mailchimp server is done asynchronously, this plugin returns a promise, which resolves to whatever is returned from Mailchimp (usually an object).
 
 
 ### Getting Started
@@ -26,7 +28,7 @@ plugins: [
     options: {
       listId: '',
       u: '',
-      hostname: '',
+      url: '',
     },
   },
 ]
@@ -105,7 +107,7 @@ To setup or modify Mailchimp list fields, navigate to your MC list, click "Setti
 ![screenshot of Mailchimp list fields settings screen]('../img/mailchimp_list_fields.png')
 
 ### Returns
-This plugin returns a promise that resolves to the object that is return by Mailchimpʼs API.  The Mailchimp API will always return a status of 200.  In order to know if your submission was success or error, you must read the returned object, which has a `result` and `msg` property:
+This plugin returns a promise that resolves to the object that is return by Mailchimpʼs API.  The Mailchimp API will always return a status of 200.  In order to know if your submission was a success or error, you must read the returned object, which has a `result` and `msg` property:
 ```javascript
 {
   result: string // either `success` or `error` (helpful to use this key to update your state)
@@ -114,11 +116,13 @@ This plugin returns a promise that resolves to the object that is return by Mail
 ```
 
 ### Gatsby Config Instructions
-
 You need to provide this plugin with your Mailchimp account and list details in order for it to know which endpoint to save the email address to.  Follow these directions:
 
-#### hostname
+#### URL
+After logging into Mailchimp, copy/paste the URL.  The URL value is everything the `https://...com` part of your Mailchimp URL.
+
 ![TODO](./img/TODO.png)
+
 
 #### listId
 ![screenshot of how to locate your Mailchimp list ID](./img/mailchimp_list_id.png)
