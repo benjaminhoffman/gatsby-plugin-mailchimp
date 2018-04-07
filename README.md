@@ -38,7 +38,7 @@ In your `gatsby-config.js` file, add the following code to the plugin section:
 plugins: [
   ...
   {
-    resolve: 'gatsby-plugin-my-cool-plugin',
+    resolve: 'gatsby-plugin-mailchimp',
     options: {
       endpoint: '', // see instructions section below
     },
