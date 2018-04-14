@@ -76,14 +76,8 @@ var addToMailchimp = function addToMailchimp(email, fields) {
     throw 'gatsy-plugin-mailchimp: email must be of type string and a valid email address. See README for more information.';
   }
 
-  // generate Mailchimp endpoint for jsonp request
-  // note, we change `/post` to `/post-json`
-  // otherwise, Mailchomp returns an error
-
   var _getPluginOptions = getPluginOptions(),
       endpoint = _getPluginOptions.endpoint;
-
-  endpoint = endpoint.replace(/\/post/g, '/post-json');
 
   var queryParams = '&EMAIL=' + emailEncoded + convertListFields(fields);
   var url = '' + endpoint + queryParams;
