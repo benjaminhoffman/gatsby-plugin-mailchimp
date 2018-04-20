@@ -1,24 +1,14 @@
+🎉🍾 **Now officially used in Gatsbyʼs website! ([link](https://github.com/gatsbyjs/gatsby/blob/master/www/src/components/email-capture-form.js#L45))**
+
 This Gatsby plugin helps you subscribe new email addresses to your Mailchimp list.  Mailchimp does not provide much direction on making clientside requests so the setup to achieve this with a static website (i.e. Gatsby) is quite cumbersome.
 
-Although the setup and configuration below may seem long, I assure you itʼs easier than doing it from scratch yourself.
+Although the setup and configuration below may seem long, I assure you itʼs easier than doing it yourself from scratch.
 
 There are two primary steps involved.  First, you have to set your global Mailchimp settings (account ID, user ID, list ID) via your projectʼs `gatsby-config.js`.  Second, you import this plugin into the React components and pass an email and any other attributes (i.e. Mailchimp List Fields) youʼd like to save alongside the user.
 
 
 ## How It Works Under The Hood
 What this plugin does is scan your `gatsby-config` for your MC settings.  Then, once you import and invoke the `addToMailchimp` method in your React component, it makes a jsonp request of the email/attributes to MC's server using your settings.
-
-Because making a request to the Mailchimp server is done asynchronously, this plugin returns a promise, which resolves to whatever is returned from Mailchimp (usually an object).
-
-
-## Returns
-This plugin returns a promise that resolves to the object that is return by Mailchimpʼs API.  The Mailchimp API will always return a status of 200.  In order to know if your submission was a success or error, you must read the returned object, which has a `result` and `msg` property:
-```javascript
-{
-  result: string // either `success` or `error` (helpful to use this key to update your state)
-  msg: string // a user-friendly message indicating details of your submissions (usually something like "thanks for subscribing!" or "this email has already been added")
-}
-```
 
 
 ## Getting Started
@@ -115,12 +105,25 @@ export default class MyGatsbyComponent extends React.Component {
 }
 ```
 
-// TODO link to an example of usage.
+## Returns
+This plugin returns a promise that resolves to the object that is return by Mailchimpʼs API.  The Mailchimp API will always return a status of 200.  In order to know if your submission was a success or error, you must read the returned object, which has a `result` and `msg` property:
+```javascript
+{
+  result: string // either `success` or `error` (helpful to use this key to update your state)
+  msg: string // a user-friendly message indicating details of your submissions (usually something like "thanks for subscribing!" or "this email has already been added")
+}
+```
 
-Things to be aware of:
+## Example
+To see an example usage, look no further than Gatsbyʼs website.  Here are some helpful links:
+- Add Mailchimp settings via gatsby-config ([link](https://github.com/gatsbyjs/gatsby/blob/master/www/gatsby-config.js#L175-L180))
+- Use React state to show success, error, and sending messages in the UI ([link](https://github.com/gatsbyjs/gatsby/blob/master/www/src/components/email-capture-form.js#L45-L84))
+
+
+## Gotchas
 1. *email address*: pass in the email as normal (ie, _you@gmail.com_); do _not_ encode or transform the email, as our plugin will do that for you!
 
-2. *listFields*: many times you want to collect more than just an email address (first/last name, birthday, page pathname).  I like to store this info in React state and pass it in as list fields.  See below
+2. *listFields*: many times you want to collect more than just an email address (first/last name, birthday, page pathname).  I like to store this info in React state and pass it in as list fields.  See below.
 
 3. I like to save the returned data to React state so I can then display a success/error message to the user.
 
