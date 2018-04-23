@@ -32,8 +32,11 @@ const getPluginOptions = () => {
   if (!isString) {
     throw `Mailchimp endpoint required and must be of type string. See repo README for more info.`
   }
-  return options
-}
+
+  const modifiedOptions = Object.assign({}, options);
+  modifiedOptions.endpoint = modifiedOptions.endpoint.replace(/\/post\?/, '/post-json?');
+  return modifiedOptions;
+};
 
 /*
  * build a query string of MC list fields
