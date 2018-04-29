@@ -32,10 +32,7 @@ const getPluginOptions = () => {
   if (!isString) {
     throw `Mailchimp endpoint required and must be of type string. See repo README for more info.`
   }
-
-  const modifiedOptions = Object.assign({}, options);
-  modifiedOptions.endpoint = modifiedOptions.endpoint.replace(/\/post\?/, '/post-json?');
-  return modifiedOptions;
+  return options
 };
 
 /*
@@ -65,7 +62,12 @@ const addToMailchimp = (email, fields) => {
     throw 'gatsy-plugin-mailchimp: email must be of type string and a valid email address. See README for more information.'
   }
 
-  const {endpoint} = getPluginOptions()
+  // generate Mailchimp endpoint for jsonp request
+  // note, we change `/post` to `/post-json`
+  // otherwise, Mailchomp returns an error
+  let {endpoint} = getPluginOptions()
+  endpoint = endpoint.replace(/\/post/g, '/post-json')
+
   const queryParams = `&EMAIL=${emailEncoded}${convertListFields(fields)}`
   const url = `${endpoint}${queryParams}`
   return subscribeEmailToMailchimp(url)
