@@ -1,3 +1,4 @@
+
 🎉🍾 **Now officially used in Gatsbyʼs website! ([link](https://github.com/gatsbyjs/gatsby/blob/master/www/src/components/email-capture-form.js#L45))**
 
 This Gatsby plugin helps you subscribe new email addresses to your Mailchimp list.  Mailchimp does not provide much direction on making clientside requests so the setup to achieve this with a static website (i.e. Gatsby) is quite cumbersome.
