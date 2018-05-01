@@ -1,10 +1,8 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _gatsbyConfig = require('../../gatsby-config');
 
@@ -16,6 +14,8 @@ var _jsonp2 = _interopRequireDefault(_jsonp);
 
 var _emailValidator = require('email-validator');
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /*
  * make a jsonp request to user's mailchimp list
  * url is a concatenated string of user's gatsby-config.js
@@ -25,7 +25,7 @@ var _emailValidator = require('email-validator');
 var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(url) {
   return new Promise(function (resolve, reject) {
     // `param` object avoids CORS issues
-    return (0, _jsonp2['default'])(url, { param: 'c' }, function (err, data) {
+    return (0, _jsonp2.default)(url, { param: 'c' }, function (err, data) {
       if (err) reject(err);
       if (data) resolve(data);
     });
@@ -38,7 +38,7 @@ var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(url) {
 
 var getPluginOptions = function getPluginOptions() {
   // find gatsby-mailchimp plugin options (MC list settings)
-  var options = _gatsbyConfig2['default'].plugins.find(function (plugin) {
+  var options = _gatsbyConfig2.default.plugins.find(function (plugin) {
     return plugin.resolve === 'gatsby-plugin-mailchimp';
   }).options;
 
@@ -80,9 +80,8 @@ var addToMailchimp = function addToMailchimp(email, fields) {
   // note, we change `/post` to `/post-json`
   // otherwise, Mailchomp returns an error
 
-  var _getPluginOptions = getPluginOptions();
-
-  var endpoint = _getPluginOptions.endpoint;
+  var _getPluginOptions = getPluginOptions(),
+      endpoint = _getPluginOptions.endpoint;
 
   endpoint = endpoint.replace(/\/post/g, '/post-json');
 
@@ -91,5 +90,4 @@ var addToMailchimp = function addToMailchimp(email, fields) {
   return subscribeEmailToMailchimp(url);
 };
 
-exports['default'] = addToMailchimp;
-module.exports = exports['default'];
+exports.default = addToMailchimp;

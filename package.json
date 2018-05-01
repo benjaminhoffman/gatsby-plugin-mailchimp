@@ -6,7 +6,8 @@
   "scripts": {
     "test": "test",
     "build": "babel src -d .",
-    "watch": "babel src -d . -w"
+    "watch": "babel src -d . -w",
+    "publish": "babel src -d && npm publish"
   },
   "repository": {
     "type": "git",
