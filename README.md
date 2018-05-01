@@ -44,7 +44,7 @@ plugins: [
 5. Click the subtab "Signup forms"
 6. Click "Embedded forms"
 
-![screenshot of how to locate your Mailchimp u settings](./img/mailchimp_list.png)
+![screenshot of how to locate your Mailchimp `u` settings](https://raw.githubusercontent.com/benjaminhoffman/gatsby-plugin-mailchimp/master/img/mailchimp_list.png)
 
 7. Scroll down to the section with all the HTML code
 8. Locate the HTML form element.  Copy the entire URL listed under the form "action" attribute*
@@ -52,7 +52,7 @@ plugins: [
 
 * Usually this URL value will look something like: _https://example.us10.list-manage.com/subscribe/post?u=b9ef2fdd3edofhec04ba9b930&amp;id=3l948gkt1d_
 
-![screenshot of how to copy/paste your list settings URL](./img/mailchimp_form_action.png)
+![screenshot of how to copy/paste your list settings URL](https://raw.githubusercontent.com/benjaminhoffman/gatsby-plugin-mailchimp/master/img/mailchimp_form_action.png)
 
 ... that's all!
 
@@ -142,7 +142,7 @@ addToMailchimp('email@example.com', {
 ### Create, Remove, or Edit Mailchimp List Fields
 To setup or modify Mailchimp list fields, navigate to your MC list, click "Settings", then click "List fields".  Then add, remove, or edit fields as you wish.  Make sure to update your `addToMailchimp` listFields object after youʼve made changes in Mailchimp.
 
-![screenshot of Mailchimp list fields settings screen](./img/mailchimp_list_fields.png)
+![screenshot of Mailchimp list fields settings screen](https://raw.githubusercontent.com/benjaminhoffman/gatsby-plugin-mailchimp/master/img/mailchimp_list_fields.png)
 
 
 ## To do
