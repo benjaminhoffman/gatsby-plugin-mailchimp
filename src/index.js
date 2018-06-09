@@ -59,7 +59,10 @@ const addToMailchimp = (email, fields) => {
   const isEmailValid = validate(email)
   const emailEncoded = encodeURIComponent(email)
   if (!isEmailValid) {
-    throw 'gatsy-plugin-mailchimp: email must be of type string and a valid email address. See README for more information.'
+    return {
+      status: 'error',
+      msg: 'gatsy-plugin-mailchimp: email must be of type string and a valid email address. See README for more information.'
+    }
   }
 
   // generate Mailchimp endpoint for jsonp request
