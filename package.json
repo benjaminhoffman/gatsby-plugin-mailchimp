@@ -13,6 +13,11 @@
     "type": "git",
     "url": "https://github.com/benjaminhoffman/gatsby-plugin-mailchimp.git"
   },
+  "files": [
+    "index.js",
+    "gatsby-ssr.js",
+    "yarn.lock"
+  ],
   "keywords": [
     "gatsby",
     "gatsby-plugin",
