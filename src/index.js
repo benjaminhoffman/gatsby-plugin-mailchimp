@@ -47,11 +47,7 @@ const addToMailchimp = (email, fields) => {
   // generate Mailchimp endpoint for jsonp request
   // note, we change `/post` to `/post-json`
   // otherwise, Mailchomp returns an error
-  let {endpoint} = window.__GATSBY_PLUGIN_MAILCHIMP__ || {};
-  if (!typeof endpoint === 'string') {
-    return Promise.reject(`Mailchimp endpoint required and must be of type string. See repo README for more info.`);
-  }
-  endpoint = endpoint.replace(/\/post/g, '/post-json')
+  const endpoint = __GATSBY_PLUGIN_MAILCHIMP_ADDRESS__.replace(/\/post/g, '/post-json')
 
   const queryParams = `&EMAIL=${emailEncoded}${convertListFields(fields)}`
   const url = `${endpoint}${queryParams}`
