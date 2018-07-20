@@ -73,7 +73,10 @@ var addToMailchimp = function addToMailchimp(email, fields) {
   var isEmailValid = (0, _emailValidator.validate)(email);
   var emailEncoded = encodeURIComponent(email);
   if (!isEmailValid) {
-    throw 'gatsy-plugin-mailchimp: email must be of type string and a valid email address. See README for more information.';
+    return Promise.resolve({
+      result: 'error',
+      msg: 'The email you entered is not valid.'
+    });
   }
 
   // generate Mailchimp endpoint for jsonp request
