@@ -1,4 +1,3 @@
-
 🎉🍾 **Now officially used in Gatsbyʼs website! ([link](https://github.com/gatsbyjs/gatsby/blob/master/www/src/components/email-capture-form.js#L45))**
 
 This Gatsby plugin helps you subscribe new email addresses to your Mailchimp list.  Mailchimp does not provide much direction on making clientside requests so the setup to achieve this with a static website (i.e. Gatsby) is quite cumbersome.
@@ -128,9 +127,11 @@ To see an example usage, look no further than Gatsbyʼs website.  Here are some 
 
 3. I like to save the returned data to React state so I can then display a success/error message to the user.
 
+4. There is a [current known issue (#15)](https://github.com/benjaminhoffman/gatsby-plugin-mailchimp/issues/15) where this plugin does *not work* if the Mailchimp List has [reCAPTCHA enabled](https://mailchimp.com/help/about-recaptcha-for-signup-forms/#Enable-reCAPTCHA/). This setting should be turned off for everything to function properly.
 
 ## Mailchimp List Fields
 Sometimes you want to send to Mailchimp more than just an email address.  Itʼs very common to also send a first name, last name, pathname, etc.  Honestly, you can send whatever you want to store alongside the email address.  Instructions below on how to create new list fields but once youʼve set them up in Mailchimp, you send them alongside the email like this:
+
 ```javascript
 addToMailchimp('email@example.com', {
   PATHNAME: '/blog-post-1',
