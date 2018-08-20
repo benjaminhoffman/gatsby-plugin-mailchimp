@@ -146,6 +146,14 @@ To setup or modify Mailchimp list fields, navigate to your MC list, click "Setti
 ![screenshot of Mailchimp list fields settings screen](https://raw.githubusercontent.com/benjaminhoffman/gatsby-plugin-mailchimp/master/img/mailchimp_list_fields.png)
 
 
+## Version History
+**3.0.0**
+- uses `gatsby-node` and [Webpack DefinePlugin](https://webpack.js.org/plugins/define-plugin/) to extract your Mailchimp API key during _compile time only_, set it to global, then use it to make the http request.  Previously, we were importing your entire `gatsby-config` file
+
+**2.0.0**
+- return a promise, not string, from an error'd http request
+
+
 ## To do
 - ensure MC endpoint is valid
 - create basic MC field form (name, email, submit button)
