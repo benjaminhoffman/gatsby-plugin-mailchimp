@@ -1,4 +1,3 @@
-import gatsbyConfig from '../../gatsby-config'
 import jsonp from 'jsonp'
 import { validate } from 'email-validator'
 
@@ -17,23 +16,6 @@ const subscribeEmailToMailchimp = url => (
     })
   })
 )
-
-/*
- * parse the plugin options to use in our jsonp request
- */
-
-const getPluginOptions = () => {
-  // find gatsby-mailchimp plugin options (MC list settings)
-  const options = gatsbyConfig.plugins.find(
-    plugin => plugin.resolve === 'gatsby-plugin-mailchimp'
-  ).options
-
-  const isString = typeof options.endpoint === 'string'
-  if (!isString) {
-    throw `Mailchimp endpoint required and must be of type string. See repo README for more info.`
-  }
-  return options
-};
 
 /*
  * build a query string of MC list fields
@@ -68,8 +50,7 @@ const addToMailchimp = (email, fields) => {
   // generate Mailchimp endpoint for jsonp request
   // note, we change `/post` to `/post-json`
   // otherwise, Mailchomp returns an error
-  let {endpoint} = getPluginOptions()
-  endpoint = endpoint.replace(/\/post/g, '/post-json')
+  const endpoint = __GATSBY_PLUGIN_MAILCHIMP_ADDRESS__.replace(/\/post/g, '/post-json')
 
   const queryParams = `&EMAIL=${emailEncoded}${convertListFields(fields)}`
   const url = `${endpoint}${queryParams}`

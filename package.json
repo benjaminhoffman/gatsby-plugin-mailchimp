@@ -24,7 +24,8 @@
   "license": "MIT",
   "dependencies": {
     "email-validator": "^2.0.3",
-    "jsonp": "^0.2.1"
+    "jsonp": "^0.2.1",
+    "webpack": "^1.15.0"
   },
   "bugs": {
     "url": "https://github.com/benjaminhoffman/gatsby-plugin-mailchimp/issues"
