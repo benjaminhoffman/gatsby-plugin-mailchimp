@@ -4,9 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _gatsbyConfig = require('../../gatsby-config');
-
-var _gatsbyConfig2 = _interopRequireDefault(_gatsbyConfig);
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _jsonp = require('jsonp');
 
@@ -30,23 +28,6 @@ var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(url) {
       if (data) resolve(data);
     });
   });
-};
-
-/*
- * parse the plugin options to use in our jsonp request
- */
-
-var getPluginOptions = function getPluginOptions() {
-  // find gatsby-mailchimp plugin options (MC list settings)
-  var options = _gatsbyConfig2.default.plugins.find(function (plugin) {
-    return plugin.resolve === 'gatsby-plugin-mailchimp';
-  }).options;
-
-  var isString = typeof options.endpoint === 'string';
-  if (!isString) {
-    throw 'Mailchimp endpoint required and must be of type string. See repo README for more info.';
-  }
-  return options;
 };
 
 /*
@@ -83,9 +64,12 @@ var addToMailchimp = function addToMailchimp(email, fields) {
   // note, we change `/post` to `/post-json`
   // otherwise, Mailchomp returns an error
 
-  var _getPluginOptions = getPluginOptions(),
-      endpoint = _getPluginOptions.endpoint;
+  var _ref = window.__GATSBY_PLUGIN_MAILCHIMP__ || {},
+      endpoint = _ref.endpoint;
 
+  if (!(typeof endpoint === 'undefined' ? 'undefined' : _typeof(endpoint)) === 'string') {
+    return Promise.reject('Mailchimp endpoint required and must be of type string. See repo README for more info.');
+  }
   endpoint = endpoint.replace(/\/post/g, '/post-json');
 
   var queryParams = '&EMAIL=' + emailEncoded + convertListFields(fields);
