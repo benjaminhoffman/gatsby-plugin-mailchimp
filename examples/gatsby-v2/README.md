@@ -2,10 +2,10 @@
     <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
 </p>
 
-## Example of `gatsby-plugin-mailchimp` for Gatsby v1.
+## Example of `gatsby-plugin-mailchimp` for Gatsby v2.
 
 
-This example repo combines `gatsby-starter-default` with `gatsby-plugin-mailchimp` for Gatsby **v1**.  It's nothing special -- I didn't change anything.  It's mostly used for you to see how to use this plugin.
+This example repo combines `gatsby-starter-default` with `gatsby-plugin-mailchimp` for Gatsby **v2**.  It's nothing special -- I didn't change anything.  It's mostly used for you to see how to use this plugin.
 
 See something missing from this example?  Let me know and I will update it! ... or even better, open your own PR and I'll merge it!
 

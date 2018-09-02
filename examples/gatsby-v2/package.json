@@ -4,10 +4,13 @@
   "version": "1.0.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
-    "gatsby": "^1.9.277",
-    "gatsby-link": "^1.6.46",
-    "gatsby-plugin-mailchimp": "^3.0.0",
-    "gatsby-plugin-react-helmet": "^2.0.11",
+    "gatsby": "next",
+    "gatsby-plugin-mailchimp": "https://github.com/benjaminhoffman/gatsby-plugin-mailchimp.git#gatsby-v2",
+    "gatsby-plugin-manifest": "next",
+    "gatsby-plugin-offline": "next",
+    "gatsby-plugin-react-helmet": "next",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "react-helmet": "^5.2.0"
   },
   "keywords": [
@@ -18,11 +21,11 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "serve": "gatsby serve",
-    "format": "prettier --write 'src/**/*.js'",
+    "format": "prettier --write '**/*.js'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "prettier": "^1.13.7"
+    "prettier": "^1.14.2"
   },
   "repository": {
     "type": "git",
