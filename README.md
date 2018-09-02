@@ -1,9 +1,10 @@
 ## Subscribe emails to your Mailchimp list
-
 This Gatsby plugin helps you subscribe new email addresses to a Mailchimp email list.  Mailchimp does not provide much direction on making clientside requests so the setup to achieve this with a static website (i.e. Gatsby) can be cumbersome.
+
 
 ## How It Works Under The Hood
 What this plugin does is scan your `gatsby-config` for your MC settings.  Then, once you import and invoke the `addToMailchimp` method in your React component, it makes a jsonp request of the email/attributes to MC's server using your settings.
+
 
 ## Using Gatsby v2?
 If you are still on Gatsby v1, skip this section.  The master branch of this repo (v3) is still meant for Gatsby v1 use.  Once Gatsby releases their v2, I will upgrade this repo to be compatible and bump the version to v4.
@@ -26,6 +27,7 @@ There are three steps involved to getting started:
 3. import the `addToMailchimp` function to subscribe emails to your MC list
 
 
+
 ## Gatsby Config Instructions
 You need to provide this plugin with your Mailchimp account and list details in order for it to know which endpoint to save the email address to.  Follow these directions:
 
@@ -41,6 +43,7 @@ plugins: [
   },
 ]
 ```
+
 
 ### Mailchimp Endpoint
 1. Login to your Mailchimp account
@@ -122,6 +125,7 @@ This plugin returns a promise that resolves to the object that is returned by Ma
 }
 ```
 
+
 ## Example
 To see an example usage, look no further than Gatsbyʼs website.  Here are some helpful links:
 - Add Mailchimp settings via gatsby-config ([link](https://github.com/gatsbyjs/gatsby/blob/master/www/gatsby-config.js#L175-L180))
@@ -137,6 +141,7 @@ To see an example usage, look no further than Gatsbyʼs website.  Here are some 
 
 4. There is a [current known issue (#15)](https://github.com/benjaminhoffman/gatsby-plugin-mailchimp/issues/15) where this plugin does *not work* if the Mailchimp List has [reCAPTCHA enabled](https://mailchimp.com/help/about-recaptcha-for-signup-forms/#Enable-reCAPTCHA/). This setting should be turned off for everything to function properly.
 
+
 ## Mailchimp List Fields
 Sometimes you want to send to Mailchimp more than just an email address.  Itʼs very common to also send a first name, last name, pathname, etc.  Honestly, you can send whatever you want to store alongside the email address.  Instructions below on how to create new list fields but once youʼve set them up in Mailchimp, you send them alongside the email like this:
 
@@ -148,6 +153,7 @@ addToMailchimp('email@example.com', {
   ...
 })
 ```
+
 
 ### Create, Remove, or Edit Mailchimp List Fields
 To setup or modify Mailchimp list fields, navigate to your MC list, click "Settings", then click "List fields".  Then add, remove, or edit fields as you wish.  Make sure to update your `addToMailchimp` listFields object after youʼve made changes in Mailchimp.
