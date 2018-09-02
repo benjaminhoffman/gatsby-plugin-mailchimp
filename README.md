@@ -1,17 +1,30 @@
+## Subscribe emails to your Mailchimp list
+
 This Gatsby plugin helps you subscribe new email addresses to a Mailchimp email list.  Mailchimp does not provide much direction on making clientside requests so the setup to achieve this with a static website (i.e. Gatsby) can be cumbersome.
-
-There are two primary steps involved.  First, you have to set your global Mailchimp settings (account ID, user ID, list ID) via your projectʼs `gatsby-config.js`.  Second, you import this plugin into the React components and pass an email and any other attributes (i.e. Mailchimp List Fields) youʼd like to save alongside the user.
-
 
 ## How It Works Under The Hood
 What this plugin does is scan your `gatsby-config` for your MC settings.  Then, once you import and invoke the `addToMailchimp` method in your React component, it makes a jsonp request of the email/attributes to MC's server using your settings.
 
+## Using Gatsby v2?
+If you are still on Gatsby v1, skip this section.  The master branch of this repo (v3) is still meant for Gatsby v1 use.  Once Gatsby releases their v2, I will upgrade this repo to be compatible and bump the version to v4.
+
+In the meantime, update your `package.json` to:
+```javascript
+"gatsby-plugin-mailchimp": "https://github.com/benjaminhoffman/gatsby-plugin-mailchimp.git#gatsby-v2",
+```
+
+That branch should work fine in Gatsby v2 for now.  [Read here](https://github.com/benjaminhoffman/gatsby-plugin-mailchimp/issues/21#issuecomment-417954338) for more context. NOTE: once v2 becomes the official release, I will merge the branch above into master and slowly drop support for v1.
+
 
 ## Getting Started
-Start by adding the plugin. In the root directory of your Gatsby project, run the following command in your terminal:
-`$ yarn add gatsby-plugin-mailchimp`
+There are three steps involved to getting started:
 
-Youʼll first have to add your Mailchimp account and list settings to your `gatsby-config.js` file.  Next, youʼll have to import this plugin into each file youʼd like to use it with.  
+1. add this plugin to your repo
+    - In the root directory of your Gatsby project, run the following command in your terminal: `$ yarn add gatsby-plugin-mailchimp`
+    - or if using Gatsby v2: `$ yarn add https://github.com/benjaminhoffman/gatsby-plugin-mailchimp.git#gatsby-v2`
+2. include your Mailchimp settings in your `gatsby-config.js` file
+3. import the `addToMailchimp` function to subscribe emails to your MC list
+
 
 ## Gatsby Config Instructions
 You need to provide this plugin with your Mailchimp account and list details in order for it to know which endpoint to save the email address to.  Follow these directions:
@@ -116,7 +129,7 @@ To see an example usage, look no further than Gatsbyʼs website.  Here are some 
 
 
 ## Gotchas
-1. *email address*: pass in the email as normal (ie, `_you@gmail.com_`). Do _not_ encode or transform the email, as our plugin will do that for you!
+1. *email address*: pass in the email as normal (ie, `you@gmail.com`). Do _not_ encode or transform the email, as our plugin will do that for you!
 
 2. *listFields*: many times you want to collect more than just an email address (first/last name, birthday, page pathname).  I like to store this info in React state and pass it in as list fields.  See below.
 
