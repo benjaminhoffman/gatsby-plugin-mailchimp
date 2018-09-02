@@ -1,11 +1,8 @@
 'use strict';
 
-var _require = require('webpack'),
-    DefinePlugin = _require.DefinePlugin;
-
-exports.modifyWebpackConfig = function (_ref, _ref2) {
-  var config = _ref.config,
-      stage = _ref.stage;
+exports.onCreateWebpackConfig = function (_ref, _ref2) {
+  var plugins = _ref.plugins,
+      actions = _ref.actions;
   var endpoint = _ref2.endpoint;
 
   var isString = typeof endpoint === 'string';
@@ -15,6 +12,9 @@ exports.modifyWebpackConfig = function (_ref, _ref2) {
     throw 'gatsby-plugin-mailchimp: donʼt forget to add your MC endpoint to your gatsby-config file. See README for more info.';
   }
 
-  config.plugin('Mailchimp', DefinePlugin, [{ __GATSBY_PLUGIN_MAILCHIMP_ADDRESS__: JSON.stringify(endpoint) }]);
-  return config;
+  actions.setWebpackConfig({
+    plugins: [plugins.define({
+      __GATSBY_PLUGIN_MAILCHIMP_ADDRESS__: JSON.stringify(endpoint)
+    })]
+  });
 };
