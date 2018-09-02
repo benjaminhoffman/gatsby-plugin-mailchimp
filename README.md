@@ -1,8 +1,4 @@
-🎉🍾 **Now officially used in Gatsbyʼs website! ([link](https://github.com/gatsbyjs/gatsby/blob/master/www/src/components/email-capture-form.js#L45))**
-
-This Gatsby plugin helps you subscribe new email addresses to your Mailchimp list.  Mailchimp does not provide much direction on making clientside requests so the setup to achieve this with a static website (i.e. Gatsby) is quite cumbersome.
-
-Although the setup and configuration below may seem long, I assure you itʼs easier than doing it yourself from scratch.
+This Gatsby plugin helps you subscribe new email addresses to a Mailchimp email list.  Mailchimp does not provide much direction on making clientside requests so the setup to achieve this with a static website (i.e. Gatsby) can be cumbersome.
 
 There are two primary steps involved.  First, you have to set your global Mailchimp settings (account ID, user ID, list ID) via your projectʼs `gatsby-config.js`.  Second, you import this plugin into the React components and pass an email and any other attributes (i.e. Mailchimp List Fields) youʼd like to save alongside the user.
 
