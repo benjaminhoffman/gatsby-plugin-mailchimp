@@ -21,7 +21,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(url) {
   return new Promise(function (resolve, reject) {
     // `param` object avoids CORS issues
-    return (0, _jsonp2.default)(url, { param: 'c' }, function (err, data) {
+    // timeout to 3.5s so user isn't waiting forever
+    // usually occurs w/ privacy plugins enabled
+    // 3.5s is a bit longer than the time it would take on a Slow 3G connection
+    return (0, _jsonp2.default)(url, { param: 'c', timeout: 3500 }, function (err, data) {
       if (err) reject(err);
       if (data) resolve(data);
     });

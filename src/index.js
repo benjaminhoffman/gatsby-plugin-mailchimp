@@ -10,7 +10,10 @@ import { validate } from 'email-validator'
 const subscribeEmailToMailchimp = url => (
   new Promise((resolve, reject) => {
     // `param` object avoids CORS issues
-    return jsonp(url, { param: 'c' }, (err, data) => {
+    // timeout to 3.5s so user isn't waiting forever
+    // usually occurs w/ privacy plugins enabled
+    // 3.5s is a bit longer than the time it would take on a Slow 3G connection
+    return jsonp(url, { param: 'c', timeout: 3500 }, (err, data) => {
       if (err) reject(err)
       if (data) resolve(data)
     })
