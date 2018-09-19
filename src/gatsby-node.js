@@ -1,6 +1,6 @@
 const { DefinePlugin } = require(`webpack`)
 
-exports.modifyWebpackConfig = ({ config, stage }, { endpoint }) => {
+exports.onCreateWebpackConfig = ({ config, stage }, { endpoint }) => {
   const isString = typeof endpoint === 'string'
   if (!isString) {
     throw `Mailchimp endpoint required and must be of type string. See repo README for more info.`

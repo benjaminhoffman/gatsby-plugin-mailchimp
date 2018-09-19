@@ -3,7 +3,7 @@
 var _require = require('webpack'),
     DefinePlugin = _require.DefinePlugin;
 
-exports.modifyWebpackConfig = function (_ref, _ref2) {
+exports.onCreateWebpackConfig = function (_ref, _ref2) {
   var config = _ref.config,
       stage = _ref.stage;
   var endpoint = _ref2.endpoint;
