@@ -81,7 +81,7 @@ export default class MyGatsbyComponent extends React.Component {
 
   // 1. via `.then`
   _handleSubmit = e => {
-    e.preventDefault;
+    e.preventDefault();
     addToMailchimp(email, listFields) // listFields are optional if you are only capturing the email address.
     .then(data => {
       // I recommend setting data to React state
@@ -97,7 +97,7 @@ export default class MyGatsbyComponent extends React.Component {
 
   // 2. via `async/await`
   _handleSubmit = async (e) => {
-    e.preventDefault;
+    e.preventDefault();
     const result = await addToMailchimp(email, listFields)
     // I recommend setting `result` to React state
     // but you can do whatever you want
