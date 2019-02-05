@@ -22,13 +22,17 @@ const subscribeEmailToMailchimp = url =>
 /*
  * build a query string of MC list fields
  * ex: '&KEY1=value1&KEY2=value2'
- * (toUpperCase because that's what MC requires)
+ * (toUpperCase, unless it’s a group, because that's what MC requires)
  */
 
 const convertListFields = fields => {
   let queryParams = "";
   for (const field in fields) {
-    queryParams = queryParams.concat(`&${field}=${fields[field]}`);
+    queryParams = queryParams.concat(
+      `&${field.includes("group[") ? field : field.toUpperCase()}=${
+        fields[field]
+      }`
+    );
   }
   return queryParams;
 };
