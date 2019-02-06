@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _jsonp = require('jsonp');
+var _jsonp = require("jsonp");
 
 var _jsonp2 = _interopRequireDefault(_jsonp);
 
-var _emailValidator = require('email-validator');
+var _emailValidator = require("email-validator");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24,7 +24,7 @@ var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(url) {
     // timeout to 3.5s so user isn't waiting forever
     // usually occurs w/ privacy plugins enabled
     // 3.5s is a bit longer than the time it would take on a Slow 3G connection
-    return (0, _jsonp2.default)(url, { param: 'c', timeout: 3500 }, function (err, data) {
+    return (0, _jsonp2.default)(url, { param: "c", timeout: 3500 }, function (err, data) {
       if (err) reject(err);
       if (data) resolve(data);
     });
@@ -34,13 +34,13 @@ var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(url) {
 /*
  * build a query string of MC list fields
  * ex: '&KEY1=value1&KEY2=value2'
- * (toUpperCase because that's what MC requires)
+ * (toUpperCase, unless it’s a group, because that's what MC requires)
  */
 
 var convertListFields = function convertListFields(fields) {
-  var queryParams = '';
+  var queryParams = "";
   for (var field in fields) {
-    queryParams = queryParams.concat('&' + field.toUpperCase() + '=' + fields[field]);
+    queryParams = queryParams.concat("&" + (field.includes("group[") ? field : field.toUpperCase()) + "=" + fields[field]);
   }
   return queryParams;
 };
@@ -56,18 +56,18 @@ var addToMailchimp = function addToMailchimp(email, fields) {
   var emailEncoded = encodeURIComponent(email);
   if (!isEmailValid) {
     return Promise.resolve({
-      result: 'error',
-      msg: 'The email you entered is not valid.'
+      result: "error",
+      msg: "The email you entered is not valid."
     });
   }
 
   // generate Mailchimp endpoint for jsonp request
   // note, we change `/post` to `/post-json`
   // otherwise, Mailchomp returns an error
-  var endpoint = __GATSBY_PLUGIN_MAILCHIMP_ADDRESS__.replace(/\/post/g, '/post-json');
+  var endpoint = __GATSBY_PLUGIN_MAILCHIMP_ADDRESS__.replace(/\/post/g, "/post-json");
 
-  var queryParams = '&EMAIL=' + emailEncoded + convertListFields(fields);
-  var url = '' + endpoint + queryParams;
+  var queryParams = "&EMAIL=" + emailEncoded + convertListFields(fields);
+  var url = "" + endpoint + queryParams;
   return subscribeEmailToMailchimp(url);
 };
 
