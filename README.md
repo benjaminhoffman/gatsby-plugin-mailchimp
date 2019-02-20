@@ -7,7 +7,7 @@ What this plugin does is scan your `gatsby-config` for your MC settings.  Then, 
 
 
 ## Using Gatsby v1?
-If you are still on Gatsby v1.x, you need to use an old version of this plugin.  There were a lot of changes made in Gatsby v2 that will cause this plugin so make sure to use the correct version of this plugin if you are still on Gatsby v1.
+If you are still on Gatsby v1.x, you need to use an old version of this plugin.  There were a lot of changes made in Gatsby v2 that will cause this plugin to break. So, make sure to use the correct version of this plugin if you are still on Gatsby v1.
 
 Simply update your `package.json` to:
 ```javascript
