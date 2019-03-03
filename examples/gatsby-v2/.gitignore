@@ -3,6 +3,9 @@
 node_modules
 yarn-error.log
 
+# don't need this; allow for user to fresh install packages 
+yarn.lock
+
 # Build directory
 /public
 .DS_Store
