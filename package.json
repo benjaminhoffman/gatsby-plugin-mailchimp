@@ -23,9 +23,8 @@
   "author": "Benjamin Hoffman <6520022+benjaminhoffman@users.noreply.github.com>",
   "license": "MIT",
   "dependencies": {
-    "email-validator": "^2.0.3",
-    "jsonp": "^0.2.1",
-    "webpack": "^1.15.0"
+    "email-validator": "^2.0.4",
+    "jsonp": "^0.2.1"
   },
   "bugs": {
     "url": "https://github.com/benjaminhoffman/gatsby-plugin-mailchimp/issues"
@@ -33,6 +32,7 @@
   "homepage": "https://github.com/benjaminhoffman/gatsby-plugin-mailchimp#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1"
+    "babel-preset-env": "^1.7.0",
+    "webpack": "^4.29.6"
   }
 }
