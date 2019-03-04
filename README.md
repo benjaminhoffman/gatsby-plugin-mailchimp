@@ -140,14 +140,28 @@ addToMailchimp('email@example.com', {
 ## Mailchimp Groups
 Mailchimp offers the concept of list groups.  It's a bit tricky to implement here because you _must_ use the exact key and value as defined in your MC Embedded Form for those fields.
 
-To add these you must go back to your "Embedded Forms" (where you got your endpoint from) and find the form field that represents the group you want to add this user to.  Next, copy the name value and use that as your key in the `addToMailchimp` field param.  The name field will have weird values like `group[21265][2]` or `group[21269]`.
+To add these you must go back to your "Embedded Forms" (where you got your endpoint from) and find the form field that represents the group you want to add this user to.  Next, copy the name and use that as your key in the `addToMailchimp` field param.  The name field will have weird values like `group[21265][2]` or `group[21269]`.
+
+Similarly, the `input` field `value` must also be the same as you see.  This means you must either set the name and value fields manually in your form or keep a mapping in your JS file.
+
+Why do we need to use these weird structure for name and value field?  Because this is what Mailchimp expects. 🤷🏽‍♂️
 
 For example, here is a screenshot of what this looks like:
 
 ![screenshot of Mailchimp Groups](https://raw.githubusercontent.com/benjaminhoffman/gatsby-plugin-mailchimp/master/img/mc_groups.png)
 
 And the code would be: 
-```javascript
+```
+# HTML
+/*
+  Here we chose to name the input field the same as what's in
+  our embedded form.  But you can name it whatever you want and keep
+  a field name map in your JS. Mailchimp expects the name and value 
+  to match what's in its Embedded Form
+*/
+<input value="2" name="group[21265][2]">
+
+# JS
 addToMailchimp('email@example.com', {
   PATHNAME: '/blog-post-1',
   FNAME: 'Ben',
@@ -183,18 +197,3 @@ Also, here are some helpful links:
 To setup or modify Mailchimp list fields, navigate to your MC list, click "Settings", then click "List fields".  Then add, remove, or edit fields as you wish.  Make sure to update your `addToMailchimp` listFields object after youʼve made changes in Mailchimp.
 
 ![screenshot of Mailchimp list fields settings screen](https://raw.githubusercontent.com/benjaminhoffman/gatsby-plugin-mailchimp/master/img/mailchimp_list_fields.png)
-
-
-## Version History
-**3.0.0**
-- uses `gatsby-node` and [Webpack DefinePlugin](https://webpack.js.org/plugins/define-plugin/) to extract your Mailchimp API key during _compile time only_, set it to global, then use it to make the http request.  Previously, we were importing your entire `gatsby-config` file
-
-**2.0.0**
-- return a promise, not string, from an error'd http request
-
-
-## To do
-- ensure MC endpoint is valid
-- create basic MC field form (name, email, submit button)
-- spec
-
