@@ -9,6 +9,8 @@ What this plugin does is scan your `gatsby-config` for your MC settings.  Then, 
 ## Using Gatsby v1?
 If you are still on Gatsby v1.x, you need to use an old version of this plugin.  There were a lot of changes made in Gatsby v2 that will cause this plugin so make sure to use the correct version of this plugin if you are still on Gatsby v1.
 
+We no longer maintain this version.
+
 Simply update your `package.json` to:
 ```javascript
 "gatsby-plugin-mailchimp": "https://github.com/benjaminhoffman/gatsby-plugin-mailchimp.git#gatsby-v1",
@@ -123,8 +125,46 @@ This plugin returns a promise that resolves to the object that is returned by Ma
 ```
 
 
+## Mailchimp List Fields
+Sometimes you want to send to Mailchimp more than just an email address.  Itʼs very common to also send a first name, last name, pathname, etc.  Honestly, you can send whatever you want to store alongside the email address.  Instructions below on how to create new list fields but once youʼve set them up in Mailchimp, you send them alongside the email like this:
+
+```javascript
+addToMailchimp('email@example.com', {
+  PATHNAME: '/blog-post-1',
+  FNAME: 'Ben',
+  LNAME: 'Coder'
+  ...
+})
+```
+
+## Mailchimp Groups
+Mailchimp offers the concept of list groups.  It's a bit tricky to implement here because you _must_ use the exact key and value as defined in your MC Embedded Form for those fields.
+
+To add these you must go back to your "Embedded Forms" (where you got your endpoint from) and find the form field that represents the group you want to add this user to.  Next, copy the name value and use that as your key in the `addToMailchimp` field param.  The name field will have weird values like `group[21265][2]` or `group[21269]`.
+
+For example, here is a screenshot of what this looks like:
+
+![screenshot of Mailchimp Groups](https://raw.githubusercontent.com/benjaminhoffman/gatsby-plugin-mailchimp/master/img/mc_groups.png)
+
+And the code would be: 
+```javascript
+addToMailchimp('email@example.com', {
+  PATHNAME: '/blog-post-1',
+  FNAME: 'Ben',
+  LNAME: 'Coder',
+  'group[21265][2]': '2',
+  ...
+})
+```
+
+See here for [thread](https://github.com/benjaminhoffman/gatsby-plugin-mailchimp/pull/31).
+
+
+
 ## Example
-To see an example usage, look no further than Gatsbyʼs website.  Here are some helpful links:
+See directory in this repo called `/examples`.
+
+Also, here are some helpful links:
 - Add Mailchimp settings via gatsby-config ([link](https://github.com/gatsbyjs/gatsby/blob/master/www/gatsby-config.js#L175-L180))
 - Use React state to show success, error, and sending messages in the UI ([link](https://github.com/gatsbyjs/gatsby/blob/master/www/src/components/email-capture-form.js#L45-L84))
 
@@ -137,19 +177,6 @@ To see an example usage, look no further than Gatsbyʼs website.  Here are some 
 3. I like to save the returned data to React state so I can then display a success/error message to the user.
 
 4. There is a [current known issue (#15)](https://github.com/benjaminhoffman/gatsby-plugin-mailchimp/issues/15) where this plugin does *not work* if the Mailchimp List has [reCAPTCHA enabled](https://mailchimp.com/help/about-recaptcha-for-signup-forms/#Enable-reCAPTCHA/). This setting should be turned off for everything to function properly.
-
-
-## Mailchimp List Fields
-Sometimes you want to send to Mailchimp more than just an email address.  Itʼs very common to also send a first name, last name, pathname, etc.  Honestly, you can send whatever you want to store alongside the email address.  Instructions below on how to create new list fields but once youʼve set them up in Mailchimp, you send them alongside the email like this:
-
-```javascript
-addToMailchimp('email@example.com', {
-  PATHNAME: '/blog-post-1',
-  FNAME: 'Ben',
-  LNAME: 'Bordeaux'
-  ...
-})
-```
 
 
 ### Create, Remove, or Edit Mailchimp List Fields

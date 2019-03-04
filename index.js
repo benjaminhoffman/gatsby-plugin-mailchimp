@@ -34,13 +34,19 @@ var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(url) {
 /*
  * build a query string of MC list fields
  * ex: '&KEY1=value1&KEY2=value2'
- * (toUpperCase because that's what MC requires)
+ * FIELDS: toUpperCase because that's what MC requires)
+ * GROUPS: keep as lowercase (ex: MC uses group field names as `group[21269]`)
  */
 
 var convertListFields = function convertListFields(fields) {
   var queryParams = '';
   for (var field in fields) {
-    queryParams = queryParams.concat('&' + field.toUpperCase() + '=' + fields[field]);
+    // If this is a list group, not user field,
+    // then keep lowercase, as per MC reqs
+    // Read more: https://github.com/benjaminhoffman/gatsby-plugin-mailchimp/blob/master/README.md#groups
+    // NOTE: we use `substring` instead of `startsWith` or `includes` bc of compatability (esp IE)
+    var fieldTransformed = field.substring(0, 6) ? field : field.toUpperCase();
+    queryParams = queryParams.concat('&' + fieldTransformed + '=' + fields[field]);
   }
   return queryParams;
 };
