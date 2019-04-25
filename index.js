@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _jsonp = require('jsonp');
@@ -19,16 +19,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 
 var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(url) {
-  return new Promise(function (resolve, reject) {
-    // `param` object avoids CORS issues
-    // timeout to 3.5s so user isn't waiting forever
-    // usually occurs w/ privacy plugins enabled
-    // 3.5s is a bit longer than the time it would take on a Slow 3G connection
-    return (0, _jsonp2.default)(url, { param: 'c', timeout: 3500 }, function (err, data) {
-      if (err) reject(err);
-      if (data) resolve(data);
+    return new Promise(function (resolve, reject) {
+        // `param` object avoids CORS issues
+        // timeout to 3.5s so user isn't waiting forever
+        // usually occurs w/ privacy plugins enabled
+        // 3.5s is a bit longer than the time it would take on a Slow 3G connection
+        return (0, _jsonp2.default)(url, { param: 'c', timeout: 3500 }, function (err, data) {
+            if (err) reject(err);
+            if (data) resolve(data);
+        });
     });
-  });
 };
 
 /*
@@ -39,16 +39,16 @@ var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(url) {
  */
 
 var convertListFields = function convertListFields(fields) {
-  var queryParams = '';
-  for (var field in fields) {
-    // If this is a list group, not user field,
-    // then keep lowercase, as per MC reqs
-    // Read more: https://github.com/benjaminhoffman/gatsby-plugin-mailchimp/blob/master/README.md#groups
-    // NOTE: we use `substring` instead of `startsWith` or `includes` bc of compatability (esp IE)
-    var fieldTransformed = field.substring(0, 6) ? field : field.toUpperCase();
-    queryParams = queryParams.concat('&' + fieldTransformed + '=' + fields[field]);
-  }
-  return queryParams;
+    var queryParams = '';
+    for (var field in fields) {
+        // If this is a list group, not user field,
+        // then keep lowercase, as per MC reqs
+        // Read more: https://github.com/benjaminhoffman/gatsby-plugin-mailchimp/blob/master/README.md#groups
+        // NOTE: we use `substring` instead of `startsWith` or `includes` bc of compatability (esp IE)
+        var fieldTransformed = field.substring(0, 6) ? field : field.toUpperCase();
+        queryParams = queryParams.concat('&' + fieldTransformed + '=' + fields[field]);
+    }
+    return queryParams;
 };
 
 /*
@@ -58,23 +58,23 @@ var convertListFields = function convertListFields(fields) {
  */
 
 var addToMailchimp = function addToMailchimp(email, fields) {
-  var isEmailValid = (0, _emailValidator.validate)(email);
-  var emailEncoded = encodeURIComponent(email);
-  if (!isEmailValid) {
-    return Promise.resolve({
-      result: 'error',
-      msg: 'The email you entered is not valid.'
-    });
-  }
+    var isEmailValid = (0, _emailValidator.validate)(email);
+    var emailEncoded = encodeURIComponent(email);
+    if (!isEmailValid) {
+        return Promise.resolve({
+            result: 'error',
+            msg: 'The email you entered is not valid.'
+        });
+    }
 
-  // generate Mailchimp endpoint for jsonp request
-  // note, we change `/post` to `/post-json`
-  // otherwise, Mailchomp returns an error
-  var endpoint = __GATSBY_PLUGIN_MAILCHIMP_ADDRESS__.replace(/\/post/g, '/post-json');
+    // generate Mailchimp endpoint for jsonp request
+    // note, we change `/post` to `/post-json`
+    // otherwise, Mailchomp returns an error
+    var endpoint = window.__GATSBY_PLUGIN_MAILCHIMP_ADDRESS__.replace(/\/post/g, '/post-json');
 
-  var queryParams = '&EMAIL=' + emailEncoded + convertListFields(fields);
-  var url = '' + endpoint + queryParams;
-  return subscribeEmailToMailchimp(url);
+    var queryParams = '&EMAIL=' + emailEncoded + convertListFields(fields);
+    var url = '' + endpoint + queryParams;
+    return subscribeEmailToMailchimp(url);
 };
 
 exports.default = addToMailchimp;
