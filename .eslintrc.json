@@ -1,0 +1,54 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": "eslint:recommended",
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": ["react"],
+    "rules": {
+        "indent": ["error", 4],
+        "linebreak-style": ["error", "unix"],
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"],
+        "comma-dangle": ["error", "always"],
+        "block-scoped-var": "error",
+        "camelcase": ["error", { "properties": "never" }],
+        "init-declarations": ["error", "always"],
+        "no-alert": "error",
+        "no-caller": "error",
+        "no-console": 0,
+        "no-const-assign": "error",
+        "no-delete-var": "error",
+        "no-empty-pattern": "error",
+        "no-eval": "error",
+        "no-lonely-if": "error",
+        "no-loop-func": "error",
+        "no-nested-ternary": "error",
+        "no-new": "error",
+        "no-new-wrappers": "error",
+        "no-redeclare": "error",
+        "no-script-url": "error",
+        "no-self-compare": "error",
+        "no-sequences": "error",
+        "no-shadow": "error",
+        "no-undef-init": "error",
+        "no-unneeded-ternary": ["error", { "defaultAssignment": false }],
+        "no-unused-vars": ["error", { "vars": "all", "args": "none" }],
+        "no-var": "error",
+        "no-with": "error",
+        "object-shorthand": ["error", "methods"],
+        "prefer-const": "error",
+        "radix": "error"
+    }
+}
