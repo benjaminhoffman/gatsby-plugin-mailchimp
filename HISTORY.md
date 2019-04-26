@@ -1,5 +1,9 @@
 ## Version History
 
+**5.1.0**
+
+-   Adds ability to override default Mailchimp endpoint with a custom one
+
 **5.0.1**
 
 -   Adds eslint and prettier
