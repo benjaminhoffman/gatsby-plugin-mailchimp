@@ -1,9 +1,6 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var onCreateWebpackConfig = function onCreateWebpackConfig(_ref, _ref2) {
+exports.onCreateWebpackConfig = function (_ref, _ref2) {
     var plugins = _ref.plugins,
         actions = _ref.actions;
     var endpoint = _ref2.endpoint;
@@ -21,5 +18,3 @@ var onCreateWebpackConfig = function onCreateWebpackConfig(_ref, _ref2) {
         })]
     });
 };
-
-exports.default = onCreateWebpackConfig;

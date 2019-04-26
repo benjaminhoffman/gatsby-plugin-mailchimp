@@ -1,4 +1,4 @@
-const onCreateWebpackConfig = ({ plugins, actions, }, { endpoint, }) => {
+exports.onCreateWebpackConfig = ({ plugins, actions, }, { endpoint, }) => {
     const isString = typeof endpoint === 'string';
     if (!isString) {
         throw 'Mailchimp endpoint required and must be of type string. See repo README for more info.';
@@ -14,5 +14,3 @@ const onCreateWebpackConfig = ({ plugins, actions, }, { endpoint, }) => {
         ],
     });
 };
-
-export default onCreateWebpackConfig;

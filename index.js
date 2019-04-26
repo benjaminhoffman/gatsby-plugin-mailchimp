@@ -12,12 +12,15 @@ var _emailValidator = require('email-validator');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/*
- * make a jsonp request to user's mailchimp list
- * url is a concatenated string of user's gatsby-config.js
- * options, along with any MC list fields as query params
+/**
+ * Make a jsonp request to user's mailchimp list
+ *
+ * @param {String} url - concatenated string of user's gatsby-config.js
+ *  options, along with any MC list fields as query params.
+ *
+ * @return {Promise} - a promise that resolves a data object
+ *  or rejects an error object
  */
-
 var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(url) {
     return new Promise(function (resolve, reject) {
         // `param` object avoids CORS issues
@@ -31,13 +34,15 @@ var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(url) {
     });
 };
 
-/*
- * build a query string of MC list fields
- * ex: '&KEY1=value1&KEY2=value2'
- * FIELDS: toUpperCase because that's what MC requires)
- * GROUPS: keep as lowercase (ex: MC uses group field names as `group[21269]`)
+/**
+ * Build a query string of MC list fields
+ *
+ * @param {Object} fields - a list of mailchimp audience field labels
+ *  and their values. We uppercase because that's what MC requires.
+ *  NOTE: GROUPS stay as lowercase (ex: MC uses group field names as `group[21269]`)
+ *
+ * @return {String} - `&FIELD1=value1&FIELD2=value2&group[21265][2]=group1`
  */
-
 var convertListFields = function convertListFields(fields) {
     var queryParams = '';
     for (var field in fields) {
@@ -51,13 +56,22 @@ var convertListFields = function convertListFields(fields) {
     return queryParams;
 };
 
-/*
- * accept email (String) and additional, optional
- * Mailchimp list fields (Object)
- * then make jsonp req with data
+/**
+ * Subscribe an email address to a Mailchimp email list.
+ * We use ES5 function syntax (instead of arrow) because we need `arguments.length`
+ *
+ * @param {String} email - required; the email address you want to subscribe
+ * @param {Object} fields - optional; add'l info (columns) you want included w/ this subscriber
+ * @param {String} endpointOverride - optional; if you want to override the default MC mailing list
+ *  that's listed in your gatsby-config, pass the list in here
+ *
+ * @return {Object} -
+ *  {
+ *    result: <String>(`success` || `error`)
+ *    msg: <String>(`Thank you for subscribing!` || `The email you entered is not valid.`),
+ *  }
  */
-
-var addToMailchimp = function addToMailchimp(email, fields) {
+var addToMailchimp = function addToMailchimp(email, fields, endpointOverride) {
     var isEmailValid = (0, _emailValidator.validate)(email);
     var emailEncoded = encodeURIComponent(email);
     if (!isEmailValid) {
@@ -67,13 +81,24 @@ var addToMailchimp = function addToMailchimp(email, fields) {
         });
     }
 
-    // generate Mailchimp endpoint for jsonp request
-    // note, we change `/post` to `/post-json`
-    // otherwise, Mailchomp returns an error
-    var endpoint = window.__GATSBY_PLUGIN_MAILCHIMP_ADDRESS__.replace(/\/post/g, '/post-json');
+    // eslint-disable-next-line no-undef
+    var endpoint = __GATSBY_PLUGIN_MAILCHIMP_ADDRESS__;
 
+    // The following tests for whether you passed in a fields object
+    // by checking if there are only two params and the second is a string
+    // which implies the second is a MC mailing list, & not a fields object.
+    if (arguments.length < 3 && typeof fields === 'string') {
+        endpoint = fields;
+    } else if (typeof endpointOverride === 'string') {
+        endpoint = endpointOverride;
+    }
+
+    // Generates MC endpoint for our jsonp request. We have to
+    // change `/post` to `/post-json` otherwise, MC returns an error
+    endpoint = endpoint.replace(/\/post/g, '/post-json');
     var queryParams = '&EMAIL=' + emailEncoded + convertListFields(fields);
     var url = '' + endpoint + queryParams;
+
     return subscribeEmailToMailchimp(url);
 };
 
