@@ -1,7 +1,7 @@
 {
     "name": "gatsby-plugin-mailchimp",
     "author": "Benjamin Hoffman <6520022+benjaminhoffman@users.noreply.github.com>",
-    "version": "5.0.0",
+    "version": "5.0.1",
     "description": "A simple, lightweight Gatsby plugin to subscribe email addresses to your Mailchimp list",
     "main": "index.js",
     "license": "MIT",
@@ -37,10 +37,13 @@
         "babel-preset-env": "^1.7.0",
         "eslint": "^5.16.0",
         "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-config-prettier": "^4.2.0",
         "eslint-plugin-import": "^2.17.2",
+        "eslint-plugin-prettier": "^3.0.1",
         "eslint-plugin-react": "^7.12.4",
         "husky": "^2.1.0",
         "lint-staged": "^8.1.5",
+        "prettier": "^1.17.0",
         "webpack": "^4.29.6"
     },
     "husky": {
@@ -51,6 +54,7 @@
     "lint-staged": {
         "*.js": [
             "eslint --fix",
+            "prettier --write",
             "git add"
         ]
     }

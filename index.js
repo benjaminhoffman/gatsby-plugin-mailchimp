@@ -20,12 +20,12 @@ function _interopRequireDefault(obj) {
  * options, along with any MC list fields as query params
  */
 
+// `param` object avoids CORS issues
+// timeout to 3.5s so user isn't waiting forever
+// usually occurs w/ privacy plugins enabled
+// 3.5s is a bit longer than the time it would take on a Slow 3G connection
 var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(url) {
     return new Promise(function(resolve, reject) {
-        // `param` object avoids CORS issues
-        // timeout to 3.5s so user isn't waiting forever
-        // usually occurs w/ privacy plugins enabled
-        // 3.5s is a bit longer than the time it would take on a Slow 3G connection
         return (0, _jsonp2.default)(url, { param: 'c', timeout: 3500 }, function(err, data) {
             if (err) reject(err);
             if (data) resolve(data);
@@ -43,12 +43,12 @@ var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(url) {
 var convertListFields = function convertListFields(fields) {
     var queryParams = '';
     for (var field in fields) {
-        // If this is a list group, not user field,
-        // then keep lowercase, as per MC reqs
-        // Read more: https://github.com/benjaminhoffman/gatsby-plugin-mailchimp/blob/master/README.md#groups
-        // NOTE: we use `substring` instead of `startsWith` or `includes` bc of compatability (esp IE)
-        var fieldTransformed = field.substring(0, 6) ? field : field.toUpperCase();
-        queryParams = queryParams.concat('&' + fieldTransformed + '=' + fields[field]);
+        if (Object.prototype.hasOwnProperty.call(fields, field)) {
+            // If this is a list group, not user field then keep lowercase, as per MC reqs
+            // https://github.com/benjaminhoffman/gatsby-plugin-mailchimp/blob/master/README.md#groups
+            var fieldTransformed = field.substring(0, 6) ? field : field.toUpperCase();
+            queryParams = queryParams.concat('&' + fieldTransformed + '=' + fields[field]);
+        }
     }
     return queryParams;
 };
@@ -72,7 +72,8 @@ var addToMailchimp = function addToMailchimp(email, fields) {
     // generate Mailchimp endpoint for jsonp request
     // note, we change `/post` to `/post-json`
     // otherwise, Mailchomp returns an error
-    var endpoint = window.__GATSBY_PLUGIN_MAILCHIMP_ADDRESS__.replace(/\/post/g, '/post-json');
+    // eslint-disable-next-line no-undef
+    var endpoint = __GATSBY_PLUGIN_MAILCHIMP_ADDRESS__.replace(/\/post/g, '/post-json');
 
     var queryParams = '&EMAIL=' + emailEncoded + convertListFields(fields);
     var url = '' + endpoint + queryParams;

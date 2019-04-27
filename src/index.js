@@ -11,10 +11,13 @@ import { validate } from 'email-validator';
 // timeout to 3.5s so user isn't waiting forever
 // usually occurs w/ privacy plugins enabled
 // 3.5s is a bit longer than the time it would take on a Slow 3G connection
-const subscribeEmailToMailchimp = url => new Promise((resolve, reject) => jsonp(url, { param: 'c', timeout: 3500 }, (err, data) => {
-    if (err) reject(err);
-    if (data) resolve(data);
-}));
+const subscribeEmailToMailchimp = url =>
+    new Promise((resolve, reject) =>
+        jsonp(url, { param: 'c', timeout: 3500 }, (err, data) => {
+            if (err) reject(err);
+            if (data) resolve(data);
+        }),
+    );
 
 /*
  * build a query string of MC list fields
@@ -23,7 +26,7 @@ const subscribeEmailToMailchimp = url => new Promise((resolve, reject) => jsonp(
  * GROUPS: keep as lowercase (ex: MC uses group field names as `group[21269]`)
  */
 
-const convertListFields = (fields) => {
+const convertListFields = fields => {
     let queryParams = '';
     for (const field in fields) {
         if (Object.prototype.hasOwnProperty.call(fields, field)) {
