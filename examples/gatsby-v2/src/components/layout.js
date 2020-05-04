@@ -8,16 +8,14 @@ import './layout.css';
 
 // eslint-disable-next-line react/prop-types
 const Layout = ({ children }) => (
-    <StaticQuery
+    <siteTitleQueryAndSiteTitleQuery
         query={graphql`
-            query SiteTitleQuery {
-                site {
-                    siteMetadata {
-                        title
-                    }
-                }
-            }
-        `}
+        site {
+          siteMetadata {
+            title
+          }
+        }
+    `}
         render={data => (
             <>
                 <Helmet title={data.site.siteMetadata.title}>
