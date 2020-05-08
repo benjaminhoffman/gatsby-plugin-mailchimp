@@ -1,4 +1,4 @@
-exports.onCreateWebpackConfig = ({ plugins, actions }, { endpoint }) => {
+exports.onCreateWebpackConfig = ({ plugins, actions }, { endpoint, timeout = 3500 }) => {
     const isString = typeof endpoint === 'string';
     if (!isString) {
         throw new Error(
@@ -14,6 +14,7 @@ exports.onCreateWebpackConfig = ({ plugins, actions }, { endpoint }) => {
         plugins: [
             plugins.define({
                 __GATSBY_PLUGIN_MAILCHIMP_ADDRESS__: JSON.stringify(endpoint),
+                __GATSBY_PLUGIN_MAILCHIMP_TIMEOUT__: timeout,
             }),
         ],
     });

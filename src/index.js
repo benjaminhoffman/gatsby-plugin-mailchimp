@@ -15,9 +15,9 @@ import { validate } from 'email-validator';
  *  or rejects an error object
  */
 
-const subscribeEmailToMailchimp = url =>
+const subscribeEmailToMailchimp = ({ url, timeout }) =>
     new Promise((resolve, reject) =>
-        jsonp(url, { param: 'c', timeout: 3500 }, (err, data) => {
+        jsonp(url, { param: 'c', timeout }, (err, data) => {
             if (err) reject(err);
             if (data) resolve(data);
         }),
@@ -71,8 +71,8 @@ const addToMailchimp = function addToMailchimp(email, fields, endpointOverride) 
         });
     }
 
-    // eslint-disable-next-line no-undef
-    let endpoint = __GATSBY_PLUGIN_MAILCHIMP_ADDRESS__;
+    let endpoint = __GATSBY_PLUGIN_MAILCHIMP_ADDRESS__; // eslint-disable-line no-undef
+    const timeout = __GATSBY_PLUGIN_MAILCHIMP_TIMEOUT__; // eslint-disable-line no-undef
 
     // The following tests for whether you passed in a `fields` object. If
     // there are only two params and the second is a string, then we can safely
@@ -89,7 +89,7 @@ const addToMailchimp = function addToMailchimp(email, fields, endpointOverride) 
     const queryParams = `&EMAIL=${emailEncoded}${convertListFields(fields)}`;
     const url = `${endpoint}${queryParams}`;
 
-    return subscribeEmailToMailchimp(url);
+    return subscribeEmailToMailchimp({ url, timeout });
 };
 
 export default addToMailchimp;
