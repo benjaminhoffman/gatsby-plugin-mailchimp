@@ -64,6 +64,7 @@ plugins: [
         resolve: 'gatsby-plugin-mailchimp',
         options: {
             endpoint: '', // add your MC list endpoint here; see instructions below
+            timeout: 3500, // add a timeout for the mailchimp request (3500 by default)
         },
     },
 ];
