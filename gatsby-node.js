@@ -3,7 +3,9 @@
 exports.onCreateWebpackConfig = function(_ref, _ref2) {
     var plugins = _ref.plugins,
         actions = _ref.actions;
-    var endpoint = _ref2.endpoint;
+    var endpoint = _ref2.endpoint,
+        _ref2$timeout = _ref2.timeout,
+        timeout = _ref2$timeout === undefined ? 3500 : _ref2$timeout;
 
     var isString = typeof endpoint === 'string';
     if (!isString) {
@@ -20,6 +22,7 @@ exports.onCreateWebpackConfig = function(_ref, _ref2) {
         plugins: [
             plugins.define({
                 __GATSBY_PLUGIN_MAILCHIMP_ADDRESS__: JSON.stringify(endpoint),
+                __GATSBY_PLUGIN_MAILCHIMP_TIMEOUT__: timeout,
             }),
         ],
     });

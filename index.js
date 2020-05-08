@@ -28,9 +28,11 @@ function _interopRequireDefault(obj) {
  *  or rejects an error object
  */
 
-var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(url) {
+var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(_ref) {
+    var url = _ref.url,
+        timeout = _ref.timeout;
     return new Promise(function(resolve, reject) {
-        return (0, _jsonp2.default)(url, { param: 'c', timeout: 3500 }, function(err, data) {
+        return (0, _jsonp2.default)(url, { param: 'c', timeout: timeout }, function(err, data) {
             if (err) reject(err);
             if (data) resolve(data);
         });
@@ -52,7 +54,7 @@ var convertListFields = function convertListFields(fields) {
         if (Object.prototype.hasOwnProperty.call(fields, field)) {
             // If this is a list group, not user field then keep lowercase, as per MC reqs
             // https://github.com/benjaminhoffman/gatsby-plugin-mailchimp/blob/master/README.md#groups
-            var fieldTransformed = field.substring(0, 6) ? field : field.toUpperCase();
+            var fieldTransformed = field.substring(0, 6) === 'group[' ? field : field.toUpperCase();
             queryParams = queryParams.concat('&' + fieldTransformed + '=' + fields[field]);
         }
     }
@@ -84,8 +86,8 @@ var addToMailchimp = function addToMailchimp(email, fields, endpointOverride) {
         });
     }
 
-    // eslint-disable-next-line no-undef
-    var endpoint = __GATSBY_PLUGIN_MAILCHIMP_ADDRESS__;
+    var endpoint = __GATSBY_PLUGIN_MAILCHIMP_ADDRESS__; // eslint-disable-line no-undef
+    var timeout = __GATSBY_PLUGIN_MAILCHIMP_TIMEOUT__; // eslint-disable-line no-undef
 
     // The following tests for whether you passed in a `fields` object. If
     // there are only two params and the second is a string, then we can safely
@@ -102,7 +104,7 @@ var addToMailchimp = function addToMailchimp(email, fields, endpointOverride) {
     var queryParams = '&EMAIL=' + emailEncoded + convertListFields(fields);
     var url = '' + endpoint + queryParams;
 
-    return subscribeEmailToMailchimp(url);
+    return subscribeEmailToMailchimp({ url: url, timeout: timeout });
 };
 
 exports.default = addToMailchimp;
