@@ -22,7 +22,7 @@ exports.onCreateWebpackConfig = function(_ref, _ref2) {
         plugins: [
             plugins.define({
                 __GATSBY_PLUGIN_MAILCHIMP_ADDRESS__: JSON.stringify(endpoint),
-                __GATSBY_PLUGIN_MAILCHIMP_TIMEOUT__: timeout,
+                __GATSBY_PLUGIN_MAILCHIMP_TIMEOUT__: Number(timeout),
             }),
         ],
     });
