@@ -5,9 +5,9 @@ exports.onCreateWebpackConfig = function(_ref, _ref2) {
         actions = _ref.actions;
     var endpoint = _ref2.endpoint,
         _ref2$timeout = _ref2.timeout,
-        timeout = _ref2$timeout === undefined ? 3500 : _ref2$timeout;
-
+        timeout = _ref2$timeout === void 0 ? 3500 : _ref2$timeout;
     var isString = typeof endpoint === 'string';
+
     if (!isString) {
         throw new Error(
             'Mailchimp endpoint required and must be of type string. See repo README for more info.',
