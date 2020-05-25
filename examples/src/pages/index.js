@@ -1,5 +1,6 @@
-import React from 'react';
-import addToMailchimp from 'gatsby-plugin-mailchimp';
+/* eslint no-console:0 no-alert:0 */
+import React from 'react'
+import addToMailchimp from 'gatsby-plugin-mailchimp'
 
 export default class IndexPage extends React.Component {
     state = {
@@ -7,33 +8,33 @@ export default class IndexPage extends React.Component {
         email: null,
     }
 
-    _handleChange = (e) => {
+    _handleChange = e => {
         console.log({
             [`${e.target.name}`]: e.target.value,
-        });
+        })
         this.setState({
             [`${e.target.name}`]: e.target.value,
-        });
+        })
     }
 
-    _handleSubmit = (e) => {
-        e.preventDefault();
+    _handleSubmit = e => {
+        e.preventDefault()
 
-        console.log('submit', this.state);
+        console.log('submit', this.state)
 
         addToMailchimp(this.state.email, this.state)
             .then(({ msg, result }) => {
-                console.log('msg', `${result}: ${msg}`);
+                console.log('msg', `${result}: ${msg}`)
 
                 if (result !== 'success') {
-                    throw msg;
+                    throw msg
                 }
-                alert(msg);
+                alert(msg)
             })
-            .catch((err) => {
-                console.log('err', err);
-                alert(err);
-            });
+            .catch(err => {
+                console.log('err', err)
+                alert(err)
+            })
     }
 
     render() {
@@ -94,6 +95,6 @@ export default class IndexPage extends React.Component {
                     </form>
                 </div>
             </div>
-        );
+        )
     }
 }

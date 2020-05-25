@@ -5,9 +5,7 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "gatsby": "next",
-    "gatsby-plugin-mailchimp": "^5.0.0",
-    "gatsby-plugin-manifest": "^2.0.20",
-    "gatsby-plugin-offline": "^2.0.24",
+    "gatsby-plugin-mailchimp": "^5.1.2",
     "gatsby-plugin-react-helmet": "^3.0.7",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
