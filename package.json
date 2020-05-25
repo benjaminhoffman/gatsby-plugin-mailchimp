@@ -1,7 +1,7 @@
 {
     "name": "gatsby-plugin-mailchimp",
     "author": "Benjamin Hoffman <6520022+benjaminhoffman@users.noreply.github.com>",
-    "version": "5.2.1",
+    "version": "5.2.2",
     "description": "A simple, lightweight Gatsby plugin to subscribe email addresses to your Mailchimp list",
     "main": "index.js",
     "license": "MIT",
