@@ -10,7 +10,7 @@
         "url": "https://github.com/benjaminhoffman/gatsby-plugin-mailchimp/issues"
     },
     "scripts": {
-        "test": "test",
+        "test": "jest",
         "build": "babel src -d .",
         "watch": "babel src -d . -w",
         "publish": "yarn build && npm publish",
@@ -32,9 +32,9 @@
         "jsonp": "^0.2.1"
     },
     "devDependencies": {
-        "babel-cli": "^6.26.0",
+        "@babel/cli": "^7.8.4",
+        "@babel/preset-env": "^7.9.6",
         "babel-eslint": "^10.0.1",
-        "babel-preset-env": "^1.7.0",
         "eslint": "^5.16.0",
         "eslint-config-airbnb-base": "^13.1.0",
         "eslint-config-prettier": "^4.2.0",
@@ -42,6 +42,7 @@
         "eslint-plugin-prettier": "^3.0.1",
         "eslint-plugin-react": "^7.12.4",
         "husky": "^2.1.0",
+        "jest": "^26.0.1",
         "lint-staged": "^8.1.5",
         "prettier": "^1.17.0",
         "webpack": "^4.29.6"
