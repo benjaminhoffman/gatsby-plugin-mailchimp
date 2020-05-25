@@ -1,5 +1,9 @@
 ## Version History
 
+**5.2.0**
+
+-   Make timeout configurable (#68)
+
 **5.1.0**
 
 -   Adds ability to override default Mailchimp endpoint with a custom one
