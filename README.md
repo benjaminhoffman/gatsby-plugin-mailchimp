@@ -4,9 +4,14 @@ This Gatsby plugin helps you subscribe new email addresses to a Mailchimp email 
 not provide much direction on making clientside requests so the setup to achieve this with a static
 website (i.e. Gatsby) can be cumbersome.
 
-## 🍾 We now support multiple Mailchimp lists! 🎉
 
-See below for details.
+## We need your help! 🙏🏽
+We're looking for active contributors to this repo!  If you're interested, simply open an issue or PR of your own and indicate that you'd like to help.  Check out our open issues and PRs.  We also need to beef up testing.  Contributors get to:
+- manage versioning and deploys by publishing new versions to NPM
+- determine which features get launched by merging pull requests
+- oversee the community through commenting on and managing pull requests and issues
+
+⚜️ Being an active contributor is great for the community and your engineering resume.⚜️
 
 ## How It Works Under The Hood
 
