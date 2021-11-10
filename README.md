@@ -1,9 +1,11 @@
-## Subscribe emails to your Mailchimp list
+# Subscribe emails to your Mailchimp list
 
 This Gatsby plugin helps you subscribe new email addresses to a Mailchimp email list. Mailchimp does
 not provide much direction on making clientside requests so the setup to achieve this with a static
 website (i.e. Gatsby) can be cumbersome.
 
+## Actively looking for repo maintainers!
+I no longer have time to manage this package and would love if someone could help me maintain it. Please open an issue if you're interested and we'll chat! 🙏🏽
 
 ## We need your help! 🙏🏽
 We're looking for active contributors to this repo!  If you're interested, simply open an issue or PR of your own and indicate that you'd like to help.  Check out our open issues and PRs.  We also need to beef up testing.  Contributors get to:
