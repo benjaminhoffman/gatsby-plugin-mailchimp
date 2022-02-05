@@ -29,14 +29,14 @@ function _interopRequireDefault(obj) {
 var subscribeEmailToMailchimp = function subscribeEmailToMailchimp(_ref) {
     var url = _ref.url,
         timeout = _ref.timeout;
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         return (0, _jsonp['default'])(
             url,
             {
                 param: 'c',
                 timeout: timeout,
             },
-            function(err, data) {
+            function (err, data) {
                 if (err) reject(err);
                 if (data) resolve(data);
             },
@@ -60,7 +60,10 @@ var convertListFields = function convertListFields(fields) {
         if (Object.prototype.hasOwnProperty.call(fields, field)) {
             // If this is a list group, not user field then keep lowercase, as per MC reqs
             // https://github.com/benjaminhoffman/gatsby-plugin-mailchimp/blob/master/README.md#groups
-            var fieldTransformed = field.substring(0, 6) === 'group[' ? field : field.toUpperCase();
+            var fieldTransformed = field;
+            if (field.substring(0, 6) !== 'group[' && field.substring(0, 5) !== 'gdpr[') {
+                fieldTransformed = fieldTransformed.toUpperCase();
+            }
             queryParams = queryParams.concat(
                 '&'.concat(fieldTransformed, '=').concat(fields[field]),
             );
